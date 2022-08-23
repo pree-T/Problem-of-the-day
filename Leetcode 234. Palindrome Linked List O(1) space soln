@@ -1,0 +1,37 @@
+ bool isPalindrome(ListNode* head) {
+        
+        if(head==NULL || head->next==NULL)
+            return true;
+        ListNode* s=head,*f=head;
+        while(f->next && f->next->next)
+        {
+            s=s->next;
+            f=f->next->next;
+        }
+        
+        s->next=reversell(s->next);
+        s=s->next;
+        ListNode* curr=head;
+        while(curr!=NULL && s!=NULL)
+        {
+            if(s->val!=curr->val)
+                return false;
+            s=s->next;
+            curr=curr->next;
+        }
+        return true;
+    }
+    
+    ListNode* reversell(ListNode *head)
+    {
+        if(head==NULL);
+        ListNode* curr=head;ListNode* prev=NULL;
+        while(curr!=NULL)
+        {
+            ListNode *next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
