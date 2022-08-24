@@ -1,0 +1,15 @@
+C++
+Bit Manipulation
+
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        return n > 0 && !(1162261467 % n);
+    }
+};
+Max number that is power of 3 and that fits into int upper limit is3**19 (aka 1162261467).
+This number3**19 is divisible by any number that is <= and is power of 3.
+For example:
+
+3**19 / 27 = 3**19 / 3**3 = 3**16
+Meaning: 3**19 % 27 == 3**19 % 3**3 == 0
