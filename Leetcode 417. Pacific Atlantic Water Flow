@@ -1,0 +1,76 @@
+class Solution {
+public:
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        
+        
+        int r=heights.size();
+        int c=heights[0].size();
+        if(r==0 || c==0)
+            return {{}};
+        vector<vector<int>> pac(r,vector<int>(c,0));
+         vector<vector<int>> at(r,vector<int>(c,0));
+        
+        /*for(int i=0;i<r;i++)
+        {
+            pac[i][0]=1;
+        }
+        
+        for(int i=0;i<c;i++)
+        {
+            pac[0][i]=1;
+        }
+        
+        for(int i=0;i<r;i++)
+        {
+            at[i][c-1]=1;
+        }
+        
+        for(int i=0;i<c;i++)
+        {
+            at[r-1][i]=1;
+        }*/
+        
+        
+        
+        
+        for(int i=0;i<c;i++)
+        {
+            dfs(heights,pac,0,i,r,c,INT_MIN);
+            dfs(heights,at,r-1,i,r,c,INT_MIN);
+        }
+        
+        for(int i=0;i<r;i++)
+        {
+            dfs(heights,pac,i,0,r,c,INT_MIN);
+            dfs(heights,at,i,c-1,r,c,INT_MIN);
+        }
+        vector<vector<int>> ans;
+        
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<c;j++)
+            {
+                if(at[i][j]==1 && pac[i][j]==1)
+                    ans.push_back({i,j});
+                    
+            }
+        }
+        return ans;
+        
+        
+    }
+    
+    void dfs(vector<vector<int>>& heights,vector<vector<int>>& check ,int i,int j,int r,int c, int prev )
+    {
+        if(i<0 || j<0 || i>=r || j>=c || check[i][j]==1 || heights[i][j]<prev)
+        return;
+        check[i][j]=1;
+        
+       dfs(heights,check,i+1,j,r,c,heights[i][j]);
+       dfs(heights,check,i-1,j,r,c,heights[i][j]);
+       dfs(heights,check,i,j-1,r,c,heights[i][j]);
+       dfs(heights,check,i,j+1,r,c,heights[i][j]);
+        
+        
+    }
+};
