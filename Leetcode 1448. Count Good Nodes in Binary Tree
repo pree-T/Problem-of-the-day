@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int goodNodes(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        
+        int count=0;
+        
+        gnhelper(root,root->val,count);
+        return count;
+        
+    }
+    
+    void gnhelper(TreeNode* root,int maxi,int &count)
+    {
+        if(root==NULL)
+            return ;
+        if(root->val >=maxi)
+        {
+            maxi=root->val;
+            ++count;
+        }
+        gnhelper(root->left,maxi,count);
+        gnhelper(root->right,maxi,count);
+    }
+};
