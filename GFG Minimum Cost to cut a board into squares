@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int minimumCostOfBreaking(vector<int> X, vector<int> Y, int M, int N){
+        //Write your code here
+        priority_queue<pair<int,char>> q ;
+        for(auto x : X){
+            q.push({x , 'V'});
+        }
+        for(auto x : Y){
+            q.push({x , 'H'});
+        }
+        
+        int ans = 0;
+        int h = 0 , v = 0;
+        while(!q.empty()){
+            int tem = q.top().first;
+            char cut = q.top().second;
+            
+            q.pop();
+            
+            if(cut == 'V'){
+                ans += (tem*(h+1));
+                v++;
+            }
+            else{
+                ans += (tem*(v+1));
+                h++;
+            }
+        }
+        
+        return ans;
+    }
+
+    
+};
