@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<int>> levelOrder(Node* root) {
+        if(root==NULL)
+            return {};
+        
+        vector<vector<int>> ans;
+        queue<Node*> q;
+        q.push(root);
+        
+        while(!q.empty())
+        {
+            int n=q.size();
+            vector<int> temp;
+            for(int i=0;i<n;i++)
+            {
+                Node* t=q.front();
+                q.pop();
+                for(auto it:t->children)
+                {
+                    if(it)
+                        q.push(it);
+                }
+                temp.push_back(t->val);
+                
+            }
+            ans.push_back(temp);
+        }
+        return ans;
+        
+    }
+};
