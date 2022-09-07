@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string tree2str(TreeNode* root) {
+         if(root==NULL)
+            return "";
+        if(root->left == NULL && root->right==NULL)
+            return to_string(root->val);
+        
+        string ans=to_string(root->val);
+        string l=tree2str(root->left);
+        string r=tree2str(root->right);
+        if(r=="")
+            ans=ans+'('+l+')';
+        else
+            ans=ans+'('+l+')'+'('+r+')';
+        return ans;
+        
+        
+    }
+    
+    
+};
