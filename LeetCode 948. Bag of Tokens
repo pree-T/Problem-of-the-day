@@ -1,0 +1,39 @@
+We can solve this question using two pointer approach!
+
+Intuition :
+
+Sort the tokens vector.
+Pointer i initially points towards the beginning of the array. (lowest power required to spend to earn a point which adds to the score)
+Pointer j, initially points towards the end of the array. (largest possible power we can get by spending only a single point from our score)
+Why greedy ?
+
+We always tend to increase our score. So, until we have enough power, we keep incrementing i by subtracting the power (tokens[i]) from our current power and we'll add a single point to our score every time.
+
+When we don't have enough power, we'll try to get the maximum power from the tokens array by spending only the least score that we can which is one. Now, subtract a single point from your current score and add the power (tokens[j]) to your current power and decrement j by 1.
+
+Remember, you'll only spend your single point from your score, only when you are sure that you'll get atleast one more point from the tokens array. Else, its okay not to play the token. It indirectly means this scenario :
+
+You are out of power. You are left with only one element in the array. Your current score is >= 1. In this situation even if you spend a single point of your score on playing a token and getting power, it's of no use right ? We're just wasting one point of ours for no benefit!!
+
+class Solution {
+public:
+    int bagOfTokensScore(vector<int>& tokens, int power) {
+        sort(tokens.begin(), tokens.end());
+        int score = 0;
+        int i = 0, j = tokens.size()-1;
+        int n = tokens.size();
+        while(i<=j){
+            while(i<=j && tokens[i]<=power){
+                score++;
+                power -= tokens[i];
+                i++;
+            }
+            if(i>=j || score<=0) break;
+            score -= 1;
+            power += tokens[j];
+            j--;
+            
+        }
+        return score;
+    }
+};
