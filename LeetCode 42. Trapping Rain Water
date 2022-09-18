@@ -1,0 +1,58 @@
+Storing Max
+Consider every block one by one , now for this block to be filled there should be block greater than it both before and after it .
+So , we can create a max prefix and suffix array and for every index we will be knowing the max height of blocks from start to this index and the max height from index to end. So the water that will be trapped will be : min(start[i],end[i])-height[i]
+Eg. 1 3 2 4
+now water trapped at index 2 will be ; min( 3 , 4) - 2 = 1
+
+Time : O(n)
+Space : O(n)
+
+        int n = height.size();
+        vector<int> start(n,0);
+        vector<int> end(n,0);
+        
+        for(int i =0;i<n;i++){
+            if(i==0)start[i] = height[i];
+            else{
+                start[i] = max(start[i-1],height[i]);
+            }
+        }
+        for(int i =n-1;i>=0;i--){
+            if(i==n-1)end[i] = height[i];
+            else{
+                end[i] = max(end[i+1],height[i]);
+            }
+        }
+        
+        
+        int res = 0;
+        for(int i =0;i<n;i++){
+            res+= (min(start[i],end[i])-height[i]);
+        }
+        
+        
+        return res;
+Two Pointer Approach
+This is a very non intuitive approach . We will make two pointers i and j at start and end of array, Now until i<=j or j < i we will keep on moving the other smaller pointer towards the larger one. Also , we have a track of max seen before( from start to i) and from j to end. So , if height[i] < height[j] this means that water will be trapped in ith block , also we know max ht before i (maxi) ,and the max ht after j (max height after j will be just greater than max ht before beacuse when we would have reached maxi by i , we had tried to make j as big as i ).
+
+Time : O(n)
+Space : O(1)
+
+   int i =0,j = height.size()-1;
+        int res = 0;
+        int max1 = INT_MIN;
+        int max2 = INT_MIN;
+        while(i<=j){
+            
+            max1 = max(max1,height[i]);
+            max2 = max(max2,height[j]);
+            
+            res += min(max1,max2)-min(height[i],height[j]);
+            
+            if(height[i]<height[j])i++;
+            else{
+                j--;
+            }
+            
+        }
+        return res;
