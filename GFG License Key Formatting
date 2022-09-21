@@ -1,0 +1,63 @@
+class Solution
+{
+   public:
+    string ReFormatString(string S, int K){
+    	
+    	string ans,temp1,temp;
+
+     int i=0,flag = 0;
+
+     // Takes only char 
+
+     for(int i=0;i<S.length();i++){
+
+         if(S[i]!='-'){
+
+             temp1+=toupper(S[i]);
+
+         }
+
+     }
+
+     // Run for first set of string
+
+     for(i = 0;i<(temp1.length()%K);i++){
+
+         ans+=temp1[i];
+
+         flag = 1;
+
+     }
+
+     temp = "";
+
+     
+
+     // Run for Every K size of string 
+
+     for(int j=0;i<temp1.length()+1;i++,j++){
+
+         if(flag == 0 && i == K){
+
+             ans = temp;
+
+             temp="";
+
+         }
+
+         else if(j!=0 && j%K == 0){
+
+             ans = ans+'-'+temp;
+
+             temp = "";
+
+         }
+
+         temp+=temp1[i];
+
+     }
+
+     return ans;
+
+    }
+};
