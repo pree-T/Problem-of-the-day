@@ -1,0 +1,39 @@
+class Solution{
+public:
+    int minLength(string s, int n) {
+        
+        unordered_set<string> mp;
+        for(int i=1;i<9;i=i+2)
+        {
+            mp.insert(to_string(i)+to_string(i+1));
+            mp.insert(to_string(i+1)+to_string(i));
+        }
+        
+        mp.insert("09");
+        mp.insert("90");
+        stack<char> ch;
+        
+        for(int i=0;i<n;i++)
+        {
+            ch.push(s[i]);
+            if(ch.size()>=2)
+            {
+                string temp="";
+                temp=ch.top();
+                ch.pop();
+                 temp=ch.top()+temp;
+                ch.pop();
+                
+                if(mp.find(temp)==mp.end())
+                {
+                    ch.push(temp[0]);
+                    ch.push(temp[1]);
+                }
+                
+            }
+        }
+        
+        return ch.size();
+        
+    } 
+};
