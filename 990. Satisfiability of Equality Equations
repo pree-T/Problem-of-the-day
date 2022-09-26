@@ -1,0 +1,70 @@
+class Solution {
+public:
+    bool equationsPossible(vector<string>& equations) {
+        
+     vector<int>parent(26);
+     vector<int>size(26,1);
+        
+        for(int i=0;i<26;i++)
+            parent[i]=i;
+        
+        for(int i=0;i<equations.size();i++)
+        {
+            int ch1=equations[i][0]-97;
+            char sym=equations[i][1];
+            int ch2=equations[i][3]-97;
+            
+           if(sym=='=')
+           {
+               Union(ch1,ch2,parent,size);
+           }
+           
+        }
+        for(int i=0;i<equations.size();i++)
+        {
+            int ch1=equations[i][0]-97;
+            char sym=equations[i][1];
+            int ch2=equations[i][3]-97;
+             
+               if(sym=='!')
+               {
+                    int p1=findParent(ch1,parent);
+                    int p2=findParent(ch2,parent);
+                    if(p1==p2)
+                    return false;
+                   
+               }
+               
+           
+        }
+        return true;
+    }
+    
+    void Union(int ch1,int ch2,vector<int> &parent,vector<int> &size)
+    {
+        int parch1=findParent(ch1,parent);
+        int parch2=findParent(ch2,parent);
+        
+        if(parch1!=parch2)
+        {
+            if(size[parch1]>size[parch2])
+            {
+                parent[parch2]=parch1;
+                size[parch1]+=size[parch2];
+            }
+            else
+            {
+                parent[parch1]=parch2;
+                size[parch2]+=size[parch1];
+                
+            }
+        }
+    }
+    
+    int findParent(int child,vector<int> &parent)
+    {
+        if(parent[child]==child)
+            return child;
+        return parent[child]=findParent(parent[child],parent);
+    }
+};
