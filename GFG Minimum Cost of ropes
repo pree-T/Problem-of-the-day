@@ -1,0 +1,18 @@
+ long long minCost(long long arr[], long long n) {
+        long long  ans=0;
+        priority_queue<long long, vector<long long>,greater<long long>> s;
+        for(int i=0;i<n;i++)
+        s.push(arr[i]);
+        
+        while(s.size()>1)
+        {
+            long long e1=s.top();
+            s.pop();
+            long long e2=s.top();
+            s.pop();
+             ans+=e1+e2;
+            s.push(e1+e2);
+        }
+        return ans;
+        
+    }
