@@ -1,0 +1,35 @@
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(head == NULL) return head;
+        ListNode* temp = head;
+        ListNode* temp2 = head;
+        ListNode* temp3 = new ListNode(INT_MIN);
+        
+        while(n--){// temp reaching the address from where the head is at n distance far
+            if(temp == NULL) temp = head;
+            temp = temp->next;
+        }
+        while(temp){// both the pointer the temp and the temp2 are moving by maintaining the distance of n till the temp reaches the NULL
+            temp = temp->next;
+            temp3 = temp2;
+            temp2 = temp2->next;
+        }
+		// eg. INT_MIN  1->2->3->4->5->NULL // if the first element was to be deleted
+		//        ^     ^               ^
+		//        |     |               |
+		//      temp3  temp2           temp
+        temp3->next = temp2->next;
+        if(temp3->val == INT_MIN) return temp3->next; // if the deleted element was the first element then temp3 will hold INT_MIN, hence return its next.
+		// eg. INT_MIN->2->3->4->5->NULL
+		//        ^                  ^
+		//        |                  |
+		//      temp3              temp
+        return head;// if the element to be deleted is not the first then return the head
+		//lets assume the element to be deleted was 3
+		// eg. 1->2->4->5->NULL
+		//     ^            ^
+		//     |            |
+		//   head         temp
+    }
+};
