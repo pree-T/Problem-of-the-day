@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        
+        int n = arr.size();
+        
+        vector <int> absdfr;
+        for(int i = 0; i < n; i++) {
+            absdfr.push_back(abs(arr[i] - x));
+        }
+        // Vector is made. Now we want only k values near to zero
+        int l = 0;
+        int r = n-1;
+        
+        while(k < (n--) ) {
+            if(absdfr[l] <= absdfr[r])
+                r--;
+            else
+                l++;
+        }
+        
+        // Copying them into a final vector
+        vector <int> res;
+        for(int i = l; i <= r; i++) {
+            res.push_back(arr[i]);
+        }
+        return res;
+    }
+        
+    
+};
