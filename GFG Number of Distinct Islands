@@ -1,0 +1,41 @@
+class Solution {
+  public:
+    int countDistinctIslands(vector<vector<int>>& grid) {
+        unordered_set<string> mp;
+        int m=grid.size();
+        int n=grid[0].size();
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==1)
+                {
+                    string t="s";
+                    dfs(i,j,grid,t);
+                    mp.insert(t);
+                }
+            }
+        }
+        return mp.size();
+    }
+    
+    void dfs(int i,int j,vector<vector<int>> &grid,string &t)
+    {
+        if(i<0 || j<0 || i>=grid.size() || j>=grid[0].size() || grid[i][j]==0)
+        {
+            return;
+        }
+        
+        grid[i][j]=0;
+        
+        t=t+'d';
+        dfs(i+1,j,grid,t);
+        t=t+'u';
+        dfs(i-1,j,grid,t);
+        t=t+'l';
+        dfs(i,j-1,grid,t);
+        t=t+'r';
+        dfs(i,j+1,grid,t);
+        
+    }
+};
