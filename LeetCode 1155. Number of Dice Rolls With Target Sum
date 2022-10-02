@@ -1,0 +1,97 @@
+T->O(Expo) && S->O(n) [Recursion stack space]
+
+Recursive way
+
+class Solution {
+public:
+	int f(int i,int tar,int k,int n){
+		if(i==n){
+			if(!tar) return 1;
+			return 0;
+		}    
+		int p=0;
+		for(int j=1;j<=k;j++){
+			if(tar>=j) p+=f(i+1,tar-j,k,n);
+		}
+		return p;
+	}
+
+	int numRollsToTarget(int n, int k, int tar) {
+		return f(0,tar,k,n);
+	}
+};
+
+
+Memoization 
+
+T->O(n X tar) && S->O(n X tar) + O(n) [Recursion stack space]
+
+class Solution {
+public:
+	int mod=1e9+7;
+	int f(int i,int tar,int k,int n,vector<vector<int>>& dp){
+		if(i==n){
+			if(!tar) return 1;
+			return 0;
+		}    
+		if(dp[i][tar]!=-1) return dp[i][tar];
+		long long p=0;
+		for(int j=1;j<=k;j++){
+			if(tar>=j) p+=f(i+1,tar-j,k,n,dp)%mod;
+		}
+		return dp[i][tar]=p%mod;
+	}
+
+	int numRollsToTarget(int n, int k, int tar) {
+		vector<vector<int>> dp(n,vector<int>(tar+1,-1));
+		return f(0,tar,k,n,dp)%mod;
+	}
+};
+
+Tabulation
+
+T->O(n X tar) && S->O(n X tar)
+
+class Solution {
+public:
+	int mod=1e9+7;
+	int numRollsToTarget(int n, int k, int tar) {
+		vector<vector<int>> dp(n+1,vector<int>(tar+1,0));
+		dp[n][0]=1;
+		for(int i=n-1;i>=0;i--){
+			for(int t=0;t<=tar;t++){
+				long long p=0;
+				for(int j=1;j<=k;j++){
+					if(t>=j) p+=dp[i+1][t-j]%mod;
+				}
+				dp[i][t]=p%mod;
+			}
+		}
+		return dp[0][tar];
+	}
+};
+
+
+Space Optimized way
+
+T->O(n X tar) && S->O(tar)
+
+class Solution {
+public:
+	int mod=1e9+7;
+	int numRollsToTarget(int n, int k, int tar) {
+		vector<int>prev(tar+1,0),curr(tar+1,0);
+		prev[0]=1;
+		for(int i=n-1;i>=0;i--){
+			for(int t=0;t<=tar;t++){
+				long long p=0;
+				for(int j=1;j<=k;j++){
+					if(t>=j) p+=prev[t-j]%mod;
+				}
+				curr[t]=p%mod;
+			}
+			prev=curr;
+		}
+		return prev[tar];
+	}
+};	
