@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minChar(string str){
+       int n=str.size()-1;
+        int i=0,j=n;
+        int cnt=0;
+        while(i<j){
+            if(str[i]==str[j]){
+                i++;j--;
+            }else{
+                cnt++;
+                i=0;
+                j=(--n);
+            }
+        }
+        return cnt;
+    }
+};
