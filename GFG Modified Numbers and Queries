@@ -1,0 +1,29 @@
+class Solution {
+  public:
+    int sumOfAll(int l, int r){
+        vector<int> primes(r+1,0);
+        getprimes(l,r,primes);
+        int ans=0;
+        for(int i=l;i<=r;i++)
+        ans=ans+primes[i];
+        
+        return ans;
+        
+    }
+    
+    void getprimes(int l,int r,vector<int> &primes)
+    {
+        primes[0]=0;
+        primes[1]=1;
+    
+        for(int i=2;i<=r;i++)
+        {
+            if(primes[i]==0)
+            {
+                primes[i]=i;
+                for(int j=i+i;j<=r;j+=i)
+                primes[j]+=i;
+            }
+        }
+    }
+};
