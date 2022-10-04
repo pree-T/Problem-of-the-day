@@ -1,0 +1,27 @@
+SPACE OPTIMIZED SOLUTION
+
+class Solution {
+  public:
+    long long int numberOfPaths(int m, int n){
+        vector<long long> curr(n,0);
+        vector<long long> prev(n,1);
+        
+        int mod=1e9+7;
+        
+        curr[0]=1;
+        
+       
+       for(int i=1;i<m;i++)
+       {
+           for(int j=1;j<n;j++)
+           {
+               curr[j]=((curr[j-1]%mod)+ (prev[j]%mod))%mod;
+           }
+           prev=curr;
+       }
+       
+       return prev[n-1];
+       
+        
+    }
+};
