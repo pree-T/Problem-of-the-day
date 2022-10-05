@@ -1,0 +1,118 @@
+USING TRIE 
+
+
+class Solution{
+    
+    struct TrieNode{
+        int value;
+        TrieNode* arr[26];
+    };
+    TrieNode* newNode() {
+        TrieNode* temp=new TrieNode();
+        temp->value=0;
+        for(int i=0;i<26;i++)
+        {
+            temp->arr[i]=NULL;
+            
+        }
+        return temp;
+    }
+    
+    void insert(TrieNode* root,string word)
+    {
+        int i=0;
+        TrieNode* temp=root;
+        while(i<word.size())
+        {
+            if(temp->arr[word[i]-'a']==NULL)
+            {
+                temp->arr[word[i]-'a']=newNode();
+            }
+            temp=temp->arr[word[i]-'a'];
+            temp->value++;
+            i++;
+        }
+    }
+    
+    int prefCount(TrieNode* root,string pref)
+    {
+        int i=0;
+        TrieNode* temp=root;
+        while(i<pref.size())
+        {
+            if(temp->arr[pref[i]-'a']==NULL)
+            {
+                return 0;
+            }
+            temp=temp->arr[pref[i]-'a'];
+            i++;
+        }
+        int ans=0;
+        ans=temp->value;
+        return ans;
+    }
+public:
+    vector<int> prefixCount(int N, int Q, string li[], string query[])
+    {
+        TrieNode* root=newNode();
+        vector<int> answer(Q,0);
+        for(int i=0;i<N;i++)
+        {
+            string w=li[i];
+            insert(root,w);
+        }
+        
+          for(int i=0;i<Q;i++){
+
+            string s=query[i];
+
+            answer[i]=prefCount(root,s);
+
+        }
+
+        return answer;
+    }
+};
+
+
+//USING MAP
+
+unordered_map<string, int> mp;
+
+        for(int i=0; i<Q; i++)
+
+            mp[query[i]] = 1;
+
+            
+
+        for(int i=0; i<n; i++)
+
+        {
+
+            string temp = "", str = li[i];
+
+            for(int j=0; j<str.size(); j++)
+
+            {
+
+                temp += str[j];
+
+                if(mp[temp])
+
+                    mp[temp]++;
+
+            }
+
+        }
+
+        
+
+        vector<int> ans;
+
+        for(int i=0; i<Q; i++)
+
+            ans.push_back(mp[query[i]] - 1);
+
+            
+
+        return ans;
