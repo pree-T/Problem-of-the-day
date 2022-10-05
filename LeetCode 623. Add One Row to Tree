@@ -1,0 +1,47 @@
+class Solution {
+public:
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) { 
+        if(depth ==1)
+        {
+          TreeNode *temp=new TreeNode(val);
+            TreeNode* l,*r; l=NULL,r=NULL;
+            if(root)
+             l=root;
+            root=temp;
+            root->left=l;
+            root->right=r;
+            
+            return root;
+        }
+        
+        solve(root,val,depth-1,1);
+        return root;
+        
+    }
+    
+    void solve(TreeNode* root,int val,int d,int cd)
+    {
+        if(root==NULL)
+            return;
+        solve(root->left,val,d,cd+1);
+        solve(root->right,val,d,cd+1);
+        
+        if(cd==d)
+        {
+            TreeNode* l,*r; l=NULL,r=NULL;
+            if(root->left)
+                l=root->left;
+            TreeNode* node1=new TreeNode(val);
+            root->left=node1;
+            node1->left=l;
+            if(root->right)
+                r=root->right;
+            TreeNode* node2=new TreeNode(val);
+            root->right=node2;
+            node2->right=r;
+            
+        }
+        
+        
+    }
+};
