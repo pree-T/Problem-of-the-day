@@ -1,0 +1,44 @@
+class Solution {
+  public:
+    string lexicographicallySmallest(string S, int k) {
+        int n=S.size();
+        int len=n;
+        
+        int cnt = 0;
+        while (n > 0) {
+            if ((n & 1) == 1) {
+                cnt++;
+            }
+            n = n >> 1; // keep dividing n by 2 using right
+                    // shift operator
+        }
+        if(cnt==1)
+        {
+            k/=2;
+        }
+        else
+        k=k*2;
+        if(k>=len)
+        return "-1";
+        stack<char> s;
+        for(char ch:S)
+        {
+            while(!s.empty() && k>0 && s.top()>ch)
+            {
+                s.pop();
+                --k;
+            }
+            s.push(ch);
+        }
+         while(k--) s.pop();
+        string ans="";
+        while(!s.empty())
+        {
+            ans+=s.top();
+            s.pop();
+        }
+         reverse(ans.begin(),ans.end());
+         return ans;
+    
+    }
+};
