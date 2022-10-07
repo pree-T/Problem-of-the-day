@@ -1,0 +1,22 @@
+class Solution
+{
+    public:
+    void flatten(Node *root)
+    {
+        Node* curr=root;
+        Node* prev=NULL;
+        //Node* head=NULL;
+        
+        traversal(curr,prev);
+    }
+    
+    void traversal(Node *curr,Node *&prev)
+    {
+        if(curr==NULL)
+        return ;
+        traversal(curr->right,prev);
+        traversal(curr->left,prev);
+        curr->right=prev;
+        curr->left=NULL;
+        prev=curr;
+    }
