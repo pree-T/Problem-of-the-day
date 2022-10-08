@@ -1,0 +1,33 @@
+class Solution {
+  public:
+    int countOfSubstrings(string s, int k) {
+        int n=s.size();
+        vector<int> freq(26,0);
+        
+        int i=0,j=0;
+        int countd=0;
+        int ans=0;
+        while(j<n)
+        {
+            freq[s[j]-'a']++;
+            if(freq[s[j]-'a']==1)
+            ++countd;
+            
+            if(j-i+1==k)
+            {
+               if(countd==k-1)
+               {
+                   ++ans;
+               }
+               freq[s[i]-'a']--;
+               if(freq[s[i]-'a']==0)
+               --countd;
+               ++i;
+                
+            }
+            
+            ++j;
+        }
+        return ans;
+    }
+};
