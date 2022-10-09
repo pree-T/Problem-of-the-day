@@ -1,0 +1,30 @@
+class Solution {
+bool solve(int n){
+	    if(n<=1)return false;
+	    for(int i=2;i*i<=n;i++){
+	        if(n%i==0)return false;
+	    }
+	    return true;
+	}
+	public:
+		int NthTerm(int N){
+		    if(solve(N))return 0;
+		    int a=N-1;
+		    int b=N+1;
+		    int temp=0;
+		    while(true){
+		        
+		        if(temp==0){
+		            if(solve(b))return abs(b-N);
+		            temp=1;
+		            b++;
+		        }
+		       else if(temp==1){
+		            if(solve(a))return abs(a-N);
+		            temp=0;
+		            a--;
+		        }
+		    }
+		    return 0;
+		}
+};
