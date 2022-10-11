@@ -1,0 +1,43 @@
+class Solution{
+public:
+    string decodedString(string s){
+         stack<char> st;
+        int n = s.size();
+        string res="";
+        
+        for(int i=0 ; i<n ; i++){
+            if(s[i]==']'){
+                string temp1 = "";
+                while(st.top()!='['){
+                    temp1 = st.top()+temp1;
+                    st.pop();
+                }
+                st.pop();
+                int x =0;
+                string a="";
+                while(st.empty()==false && st.top()-'0' <= 9){
+                    a= st.top() + a;
+                    st.pop();
+                }
+                x = stoi(a);
+                string temp2="";
+                while(x>0){
+                    temp2=temp2 + temp1;
+                    x--;
+                }
+                for(int i=0 ; i<temp2.size() ; i++){
+                    st.push(temp2[i]);
+                }
+            }
+            else{
+                st.push(s[i]);
+            }
+        }
+        while(st.empty()==false){
+            res = st.top()+res;
+            st.pop();
+        }
+        return res;
+    
+    }
+};
