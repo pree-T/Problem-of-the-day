@@ -1,0 +1,43 @@
+class Solution{
+public:
+      string maxSum(string w,char x[], int b[],int n){
+         unordered_map<char,int> mp;
+          for(int i=0;i<n;i++)
+          {
+              mp[x[i]]=b[i];
+          }
+          
+          int maxsum=INT_MIN; int sum=0;
+          int s=0;int end=-1;int start=0;
+          
+          for(int i=0;i<w.size();i++)
+          {
+              //cout<<start<<" "<<end<<endl;
+              if(mp.find(w[i])!=mp.end())
+              {
+                  
+                  sum+=mp[w[i]];
+              }
+              else
+              {
+                  
+                  sum+=(int)w[i];
+              }
+              
+              if(sum> maxsum)
+              {
+                  start=s;
+                  end=i;
+                  maxsum=sum;
+              }
+              if(sum<0)
+              {
+                  s=i+1;
+                  sum=0;
+              }
+          }
+         
+          return w.substr(start,end-start+1);
+               
+      }
+};
