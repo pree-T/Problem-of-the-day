@@ -1,0 +1,11 @@
+class Solution
+{
+   public:
+    int findSum(int A[], int N)
+    {
+    	int mini=*min_element(A,A+N);
+    	int maxi=*max_element(A,A+N);
+    	return mini+maxi;
+    }
+
+};
