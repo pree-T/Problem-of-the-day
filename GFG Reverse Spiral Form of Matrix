@@ -1,0 +1,61 @@
+class Solution {
+  public:
+    vector<int> reverseSpiral(int R, int C, vector<vector<int>>&a)  {
+         vector<int> ans;
+        int row=R;
+        int col=C;
+        int k=0;
+        int r,c;
+        
+        while(row>=0 && col>=0)
+        {
+            r=k,c=k;
+            while(c<col)
+            {
+                //cout<<"first"<<endl;
+                //cout<<a[r][c]<<endl;
+                ans.push_back(a[r][c]);
+                ++c;
+            }
+            if(ans.size()==R*C)
+            break;
+            --c;
+            r++;
+            while(r<row)
+            {
+                //cout<<"second"<<endl;
+                //cout<<a[r][c]<<endl;
+                ans.push_back(a[r][c]);
+                ++r;
+            }
+            if(ans.size()==R*C)
+            break;
+            
+            --c;
+            --r;
+            while(c>=k)
+            {
+                //cout<<"third"<<endl;
+                //cout<<a[r][c]<<endl;
+                ans.push_back(a[r][c]);
+                --c; 
+            }
+            if(ans.size()==R*C)
+            break;
+            c++;
+            --r;
+            while(r>=k+1)
+            {
+                //cout<<"fourth"<<endl;
+                //cout<<a[r][c]<<endl;
+                 ans.push_back(a[r][c]);
+                --r; 
+            }
+            if(ans.size()==R*C)
+            break;
+            k++;--row;--col;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
