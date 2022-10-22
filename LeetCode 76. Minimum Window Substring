@@ -1,0 +1,47 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        int map[256]={0};
+        int count=0;
+        for(int i=0;i<t.size();i++)
+        {
+            if(map[t[i]]==0)
+                   ++count;
+            map[t[i]]++;
+            
+        }
+         int start=0;
+          int ans=INT_MAX;
+          int i=0;
+          int j=0;
+                   while(j<s.size())
+                   {
+                       map[s[j]]--;
+                       if(map[s[j]]==0)
+                           --count;
+                       if(count==0)
+                       {
+                           while(count==0)
+                           {
+                               if(ans>j-i+1)
+                               {
+                                   ans=min(ans,j-i+1);
+                                   start=i;
+                                   
+                               }
+                               map[s[i]]++;
+                               if(map[s[i]]==1)
+                                   ++count;
+                               ++i;
+                           }
+                       }
+                       ++j;
+                   }
+            if(ans!=INT_MAX)
+            return (s.substr(start,ans));
+        else
+            return "";
+                   
+        
+    }
+};
