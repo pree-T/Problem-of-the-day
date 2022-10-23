@@ -1,0 +1,38 @@
+class Solution{
+public:
+
+    int steppingNumbers(int n, int m)
+    {
+         int res = 0;
+queue<int>q;
+for(int i=1;i<=9;i++) q.push(i);
+
+while(!q.empty())
+{
+int curr = q.front();
+q.pop();
+
+if(curr>=n && curr<=m) res++;
+
+if(curr>m)
+continue;
+
+int ld = curr%10;
+int nexta=curr*10+ld-1;
+int nextb=curr*10+ld+1;
+if(ld==0)
+q.push(nextb);
+else if(ld==9)
+q.push(nexta);
+else
+{
+   q.push(nextb); 
+   q.push(nexta);
+}
+
+}
+if(n==0) res++;
+return res;
+    }
+    
+};
