@@ -1,0 +1,36 @@
+struct alphanumeric {
+    string name;
+    int count;
+};
+class Solution {
+  public:
+    vector<alphanumeric> sortedStrings(int N, vector<string> A) {
+        map<string, int> mp;
+
+        vector<alphanumeric> v;
+
+        for(auto val : A)
+
+        {
+
+            mp[val]++;
+
+        }
+
+        for(auto pr : mp)
+
+        {
+
+            alphanumeric str;
+
+            str.name = pr.first;
+
+            str.count = pr.second;
+
+            v.push_back(str);
+
+        }
+
+        return v;
+    }
+};
