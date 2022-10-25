@@ -1,0 +1,20 @@
+ int max = 0;
+        multiset<int> s;
+        int j = k;
+        for(int i=0; i<k; i++)
+        {
+            s.insert(arr[i]);
+        }
+        vector<int> v;
+        v.push_back(*s.rbegin());
+        for(int i=0; j<n ;i++)
+        {
+            
+            auto it = s.find(arr[i]);
+            s.erase(it);
+            s.insert(arr[j]);
+            v.push_back(*s.rbegin());
+            j++;
+        }
+        
+        return v;
