@@ -1,0 +1,15 @@
+class Solution{
+    public:
+    int removals(vector<int>& arr, int k){
+        sort(arr.begin(),arr.end());
+        int n=arr.size();
+        int ans=n;
+        for(int i=0;i<n;i++)
+        {
+            auto it=upper_bound(arr.begin(),arr.end(),arr[i]+k);
+            int pos=it-arr.begin();
+            ans=min(ans,i+(n-pos));
+        }
+        return ans;
+    }
+};
