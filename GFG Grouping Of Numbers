@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    int maxGroupSize(int arr[], int n, int k) {
+        int ans=0;
+        vector<int> r(k,0);
+        for(int i=0;i<n;i++)
+        {
+            r[arr[i]%k]++;
+        }
+        
+        for(int i=0;i<=k/2;i++)
+        {
+            if(i==0 || i==k-i)
+            {
+                if(r[i]!=0)
+                ++ans;
+            }
+            else
+            {
+                ans=ans+max(r[i],r[k-i]);
+            }
+        }
+        return ans;
+    }
+};
