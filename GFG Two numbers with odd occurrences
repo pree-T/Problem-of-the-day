@@ -1,0 +1,35 @@
+class Solution{
+    public:
+    vector<long long int> twoOddNum(long long int arr[], long long int n)  
+    {
+        long long int xor1 = 0, x1=0, x2=0;
+
+        for(int i=0; i<n; i++){
+
+            xor1 ^= arr[i];
+
+        }
+
+        long long sn = xor1 & ~(xor1-1);
+
+        for(int i=0; i<n; i++){
+
+            if((arr[i]&sn) != 0)
+
+            x1 ^= arr[i];
+
+            else
+
+            x2 ^= arr[i];
+
+        }
+
+        vector<long long> v;
+
+        v.emplace_back(max(x1,x2));
+
+        v.emplace_back(min(x1,x2));
+
+        return v;
+    }
+};
