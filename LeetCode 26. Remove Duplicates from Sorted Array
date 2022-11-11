@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& s) {
+        int n=s.size();
+        int i=0,j=0;
+         while(j<n)
+         {
+             while(j<n-1 && s[j]==s[j+1])
+             {
+                 ++j;
+             }
+             s[i]=s[j];
+             ++j;
+             ++i;
+         }
+        cout<<i<<endl;
+        return i;
+        
+    }
+};
