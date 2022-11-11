@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string isSumOfTwo(int n){
+        int m=n;
+        vector<int>primes(m+1,1);
+        primes[0]=0;
+        primes[1]=0;
+        for(int p=2;p*p<=m;p++)
+        {
+            if(primes[p]==1)
+            {
+                for(int j=p*p;j<=m;j=j+p)
+                {
+                    primes[j]=0;
+                }
+            }
+        }
+        for(int i=1;i<=n;i++)
+        {
+            if(primes[i] && primes[n-i])
+            return "Yes";
+        }
+        return "No";
+    }
+};
