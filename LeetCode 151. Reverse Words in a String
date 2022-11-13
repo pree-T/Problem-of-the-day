@@ -1,0 +1,49 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+         string wd="";
+        int n=s.size();
+       
+        vector<string> words;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]==' ')
+            {
+                //cout<<"initially"<<i<<endl;
+                while(i<n-1 && s[i+1]==' ')
+                {
+                    i++;
+                }
+                //cout<<"now"<<i<<endl;
+                if(wd!="")
+                {
+                    //cout<<wd<<endl;
+                    words.push_back(wd);
+                }
+                wd="";
+            }
+            else
+            {
+                wd=wd+s[i];
+               
+            }
+        }
+        if(wd!="")
+        words.push_back(wd);
+        /*for(int i=0;i<words.size();i++)
+        {
+            cout<<words[i]<<endl;
+        }*/
+        reverse(words.begin(),words.end());
+        string ans="";
+        for(int i=0;i<words.size();i++)
+        {
+            if(i!=words.size()-1)
+            ans=ans+words[i]+" ";
+            else
+                ans=ans+words[i];
+        }
+        return ans;
+        
+    }
+};
