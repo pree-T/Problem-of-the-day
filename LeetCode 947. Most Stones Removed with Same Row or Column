@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size();
+        vector<int> s(n, -1);
+        unordered_map<int, vector<int>> rowMap, colMap;
+        for (int i = 0; i < n; i++) {
+            rowMap[stones[i][0]].push_back(i);
+            colMap[stones[i][1]].push_back(i);
+        }
+        
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j : rowMap[stones[i][0]]) {
+                if (myUnion(s, i, j)) count++;
+            }
+            for (int j : colMap[stones[i][1]]) {
+                if (myUnion(s, i, j)) count++;
+            }
+        }
+        
+        return count;
+    }
+private:
+    bool myUnion(vector<int>& s, int a, int b) {
+        int root1 = myFind(s, a);
+        int root2 = myFind(s, b);
+        if (root1 == root2) return false;
+        if (s[root1] < s[root2]) {
+            s[root1] += s[root2];
+            s[root2] = root1;
+        } else {
+            s[root2] += s[root1];
+            s[root1] = root2;
+        }
+        return true;
+    }
+    
+    int myFind(vector<int>& s, int x) {
+        if (s[x] < 0) return x;
+        return s[x] = myFind(s, s[x]);
+    } 
+};
