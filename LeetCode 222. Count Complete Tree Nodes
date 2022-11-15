@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        
+        int left=heightleft(root);
+        int right=heightright(root);
+        if(left==right)
+        {
+            return (1<<left)-1;
+        }
+        return 1+countNodes(root->left)+countNodes(root->right);
+        
+        
+    }
+    int heightleft(TreeNode* root)
+    {
+        int h=0;
+        while(root)
+        {
+            ++h;
+            root=root->left;
+        }
+        return h;
+    }
+    int heightright(TreeNode* root)
+    {
+        int h=0;
+        while(root)
+        {
+            ++h;
+            root=root->right;
+        }
+        return h;
+    }
+};
