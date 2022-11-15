@@ -1,0 +1,28 @@
+class Solution {
+  public:
+    int longestPerfectPiece(int arr[], int n) {
+        int i=0;int j=0,ans=1;
+        map<int,int> mp;
+        mp[arr[0]]++;
+        
+        while(j<n)
+        {
+           int maxi=mp.rbegin()->first;
+           int mini=mp.begin()->first;
+           if(maxi-mini<=1)
+           {
+               ans=max(ans,j-i+1);
+               j++;
+               mp[arr[j]]++;
+           }
+           else
+           {
+               mp[arr[i]]--;
+               if(mp[arr[i]]==0) mp.erase(arr[i]);
+               ++i;
+           }
+        }
+        return ans;
+        
+    }
+};
