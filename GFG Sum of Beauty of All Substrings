@@ -1,0 +1,52 @@
+class Solution {
+  public:
+    int beautySum(string s) {
+      int n=s.size();int ans=0;
+        for(int l=2;l<=n;l++)
+        {
+            int i=0;
+            int j=0;
+            vector<int> freq(26,0);
+            while(j<n)
+            {
+                freq[s[j]-'a']++;
+                if((j-i+1)==l)
+                {
+                    //cout<<i<<" to "<<j<<" ";
+                    //cout<<max_element(freq)-min_element(freq)<<endl;
+                    ans=ans+(max_element(freq)-min_element(freq));
+                    freq[s[i]-'a']--;
+                    ++i;
+                }
+               
+                ++j;
+            }
+        }
+        //cout<<"Answer"<<endl;
+        return ans;
+    }
+    int max_element(vector<int> &freq)
+    {
+        int maxi=0;
+        for(int i=0;i<26;i++)
+        {
+            if(freq[i]!=0)
+            {
+                maxi=max(maxi,freq[i]);
+            }
+        }
+        return maxi;
+    }
+     int min_element(vector<int> &freq)
+    {
+        int mini=INT_MAX;
+        for(int i=0;i<26;i++)
+        {
+            if(freq[i]!=0)
+            {
+                mini=min(mini,freq[i]);
+            }
+        }
+        return mini;
+    }
+};
