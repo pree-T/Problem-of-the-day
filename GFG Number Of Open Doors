@@ -1,0 +1,16 @@
+class Solution {
+  public:
+    int noOfOpenDoors(long long N) {
+        // every divisor of the door number will switch the state of that door
+
+        // even number of divisors ==> remains closed, as initially it is closed and switches even number of times.
+
+        // odd number of divisors ==> opened
+
+        // odd number of divisor ==> only perfect squares have odd number of divisors
+
+        // count number of perfect squares from 1 to N, which is equal to floor(square root of N)
+        
+        return sqrt(N);
+    }
+};
