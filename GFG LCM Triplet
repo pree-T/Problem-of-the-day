@@ -1,0 +1,19 @@
+/*
+Explanation:
+
+If N is not divisible by 2,then definitely N and N-2 will be also not divisible by 2. [N-1 will be divisible by 2 leaving no common divisor]
+Thus, LCM will likely be (N)*(N-1)*(N-2)
+else, if N is divisble by 2 and 3 too, in this case N and N-3 have common element 3 and N and N-2 have common 2,So it is better to return (N-1)*(N-2)*(N-3).
+In other case even if N is divisible by 2 only not 3,then better to go with (N)*(N-1)*(N-3).As,N>N-2 comparing previous LCM.
+Above all case for small value of N i.e., N<=3.As, 1 and 3 have same factor 3 for N =3 and similarly for other N; N<=3.
+Therefore, do not forget to put this base term.*/
+class Solution {
+  public:
+    long long lcmTriplets(long long N) {
+        if(N == 2 || N == 1)  return N;
+        if(N%2) return N*(N-1)*(N-2);
+        long long a = (N*(N-1))/(__gcd(N, N-1));
+        long long b = ((N-1)*(N-2))/(__gcd(N-1, N-2));
+        return max(((a*(N-3))/(__gcd(a, N-3))), ((b*(N-3))/(__gcd(b, N-3))));
+    }
+};
