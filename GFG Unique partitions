@@ -1,0 +1,45 @@
+class Solution{
+	public:
+    vector<vector<int>> UniquePartitions(int n) {
+         vector<int> t;
+         vector<vector<int>> res;
+
+        helper(n,t,n,res);
+
+        return res;
+
+        
+    }
+    void helper(int n,vector<int>& t,int target,vector<vector<int>> &res){
+
+    
+
+     if(target==0){
+
+         if(!t.empty())
+
+           res.push_back(t);
+
+         return;        
+
+     }
+
+     if(n==0 || target<0) return;
+
+    
+
+     t.push_back(n);
+
+     helper(n,t,target-n,res);
+
+     t.pop_back();
+
+     
+
+     helper(n-1,t,target,res);
+    }
+
+    
+
+
+};
