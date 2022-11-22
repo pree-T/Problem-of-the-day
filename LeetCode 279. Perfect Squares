@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int numSquares(int n) {
+        
+        int n1=(int)ceil(sqrt(n));
+        vector<int>dp(n+1,-1);
+        return helper(0,n1,n,dp);
+        
+    }
+    
+    int helper(int val,int n1,int n,vector<int> &dp)
+    {
+        if(val==n)
+            return 0;
+        if(val>n)
+            return INT_MAX-1;
+        if(dp[val]!=-1)
+            return dp[val];
+        int ans=INT_MAX;
+        for(int i=1;i<=n1;i++)
+        {
+            int t=1+helper(val+i*i,n1,n,dp);
+            ans = min(ans,t);
+        }
+        return dp[val]=ans;
+    }
+};
