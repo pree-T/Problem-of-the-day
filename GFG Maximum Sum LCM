@@ -1,0 +1,41 @@
+class Solution {
+  public:
+    long long int maxSumLCM(int n) 
+    {
+         long maxsum=0;
+
+ 
+
+        
+
+ 
+
+        for(int i=1;i*i<=n;i++)
+
+        {
+
+ 
+
+            if(n%i==0)
+
+            {
+
+                if(i==(n/i))
+
+                {
+
+                    maxsum = maxsum+i;
+
+                }
+
+                else
+
+                    maxsum = maxsum + i+(n/i);
+
+            }
+
+        }
+
+        return maxsum;
+    }
+};
