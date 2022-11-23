@@ -1,0 +1,73 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        
+        //smaller grids
+        for(int i=0;i<9;i+=3)
+        {
+            for(int j=0;j<9;j+=3)
+            {
+                if(!isValid(i,j,i+2,j+2,board))
+                    return false;
+            }
+            
+        }
+        //row
+        for(int i=0;i<9;i++)
+        {
+            vector<int> freq(10,0);
+            for(int j=0;j<9;j++)
+            {
+                if(board[i][j]!='.')
+                {
+                    if(freq[board[i][j]-'0']==1)
+                    return false;
+                else
+                    freq[board[i][j]-'0']=1;
+                    
+                }
+                
+            }
+        }
+        
+        for(int i=0;i<9;i++)
+        {
+            vector<int> freq(10,0);
+            for(int j=0;j<9;j++)
+            {
+               if(board[j][i]!='.')
+               {
+                    if(freq[board[j][i]-'0']==1)
+                    return false;
+                else
+                    freq[board[j][i]-'0']=1;
+               }
+            }
+        }
+        
+        
+        return true;
+        
+        
+        
+    }
+    
+    bool isValid(int i,int j,int is,int js,vector<vector<char>> &board)
+    {
+        vector<int> freq(10,0);
+        for(int x=i;x<=is;x++)
+        {
+            for(int y=j;y<=js;y++)
+            {
+                if(board[x][y]!='.')
+                {
+                    if(freq[board[x][y]-'0']==1)
+                        return false;
+                    else
+                       freq[board[x][y]-'0']=1;
+                }
+            }
+        }
+        return true;
+    }
+};
