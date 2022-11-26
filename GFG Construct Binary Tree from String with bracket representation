@@ -1,0 +1,63 @@
+Node* solve(string s, int &idx){
+        if(idx>=s.length()){
+            return NULL;
+        }
+        string str="";
+        while(s[idx]>='0' && s[idx]<='9'){
+            str+=s[idx];
+            idx++;
+        }
+        Node* ans=new Node(stoi(str));
+        if(s[idx]=='('){
+            idx++;
+            ans->left=solve(s,idx);
+        }
+        if(s[idx]=='('){
+            idx++;
+            ans->right=solve(s,idx);
+        }
+        idx++;
+        return ans;
+        
+    }
+    
+    Node *treeFromString(string str){
+        // code here
+        int idx=0;
+        return solve(str,idx);
+        
+    }
+//code by sachin
+ 
+
+C++ Iterative strack Solution
+
+ Node *treeFromString(string str){
+        // code here
+        stack<Node*> st;
+        
+        for(int i=0;i<str.length();i++){
+            if(str[i]!='(' && str[i]!=')'){
+                string s="";
+                while(str[i]>='0' && str[i]<='9'){
+                    s+=str[i];
+                    i++;
+                }
+                st.push(new Node(stoi(s)));
+                i--;
+            }
+            else if(str[i]==')'){
+                Node* temp=st.top();
+                st.pop();
+                Node* root=st.top();
+                if(!root->left){
+                    root->left=temp;
+                }
+                else{
+                    root->right=temp;
+                }
+            }
+        }
+        return st.top();
+    }
+//code by sachin
