@@ -1,0 +1,26 @@
+class Solution {
+ vector<unordered_map<long long,int>> dp;
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int n = nums.size();
+        dp.resize(n);
+        int ans = 0;
+        for (int i = 1; i<n; i++)
+        {
+            int x = nums[i];
+            for (int j = 0; j<i; j++)
+            {
+                long long diff = (long long)x - nums[j];
+                dp[i][diff]++;
+                int c = dp[j][diff];
+                if (c)
+                {
+                    dp[i][diff] += c;
+                    ans += c;// actual ansswers are the ones which are stored in dp[j][diff] because they make length >2
+                }
+                // cout << " i " <<  i   << " nums[i] " <<  nums[i]  << " dp[j][diff] " <<  dp[j][diff] << " dp[i][diff] " <<  dp[i][diff] << endl;
+            }
+        }
+        return ans;
+    }
+};
