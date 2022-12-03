@@ -1,0 +1,79 @@
+class Solution {
+public:
+
+    int solve(int n, int k, vector<int> &stalls) {
+       sort(stalls.begin(),stalls.end());
+       int l=0;
+       int h=stalls[n-1];
+       int ans=-1;
+       while(l<=h)
+       {
+           int mid=l+(h-l)/2;
+           if(isPossible(mid,stalls,k))
+           {
+               ans=mid;
+               l=mid+1;
+           }
+           else
+           {
+               h=mid-1;
+           }
+       }
+       return ans;
+    }
+    bool isPossible(int mid,vector<int> &stalls,int k)
+    {
+        int last=0;
+        int count=1;
+        int n=stalls.size();
+        
+         while(last<n)
+        {
+            auto lower=lower_bound(stalls.begin()+last,stalls.end(),stalls[last]+mid);
+            if(lower!=stalls.end())
+            {
+            int pos=lower-stalls.begin();
+            last=pos;
+            if(last>=n)
+            break;
+            ++count;
+            }
+            else
+            break;
+            
+        }
+        
+        /*int n=stalls.size();
+        int l=0;
+        int h=n-1;
+        while(last<n)
+        {
+            l=last+1;
+            h=n-1;
+            int t=-1;
+            while(l<=h){
+            int m=l+(h-l)/2;
+            if(stalls[m]-stalls[last]>=mid)
+            {
+                t=m;
+                h=m-1;
+            }
+            else
+            {
+                l=m+1;
+            }
+            }
+            if(t!=-1)
+            last=t;
+            else
+            break;
+            ++count;
+        }*/
+        
+        
+        if(count>=k)
+        return true;
+        else
+        return false;
+    }
+};
