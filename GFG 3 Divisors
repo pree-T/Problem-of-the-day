@@ -1,0 +1,33 @@
+
+vector<int>mark(1000001,1);
+bool ok=false;
+class Solution
+{
+public:
+void prime(){
+    mark[1]=0;
+    for(int i=2;i*i<1000000;i++){
+        if(mark[i]){
+            for(int j=i*i;j<=1000000;j+=i){
+                mark[j]=0;
+            }
+        }
+    }
+    
+    for(int i=2;i<=1000000;i++){
+        mark[i]=(mark[i-1]+(mark[i]>0));
+    }
+}
+    vector<int> threeDivisors(vector<long long> query, int q)
+    {
+       
+           prime();
+       
+      vector<int>ans(q);
+      for(int i=0;i<q;i++){
+          int ind=sqrt(query[i]);
+          ans[i]=mark[ind];
+      }
+      return ans;
+    }
+};
