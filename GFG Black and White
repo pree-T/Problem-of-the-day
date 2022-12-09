@@ -1,0 +1,27 @@
+long long numOfWays(int n, int m)
+{
+    int mod=1e9+7;
+   int dirx[]={2,-2,1,-1,2,-2,1,-1};
+   int diry[]={1,1,2,2,-1,-1,-2,-2};
+   
+   int cnt=0;long long ans=0;
+   for(int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {
+           cnt=0;
+          for(int k=0;k<8;k++)
+          {
+              int nx=i+dirx[k];
+              int ny=j+diry[k];
+              if(nx<0 || ny<0 || nx>=n || ny>=m) continue;
+              cnt++;
+          }
+           ans+=(n*m-1-cnt)%mod;
+           ans=ans%mod;
+       }
+      
+   }
+   return ans;
+   
+}
