@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int maxAncestorDiff(TreeNode* root) {
+        
+     int ans = 0;
+    map<int, int> mp;
+    
+    maxAncestorDiff(root, mp, ans);
+    return ans;
+}
+
+void maxAncestorDiff(TreeNode* root, map<int, int> &mp, int &ans)
+{
+    if(!root)
+        return;
+    
+    if(mp.size())
+    {
+        auto it = mp.end();
+        ans = max(ans, abs(root->val - (--it)->first));
+        
+        it = mp.begin();
+        ans = max(ans, abs(root->val - it->first));
+    }
+    
+    mp[root->val]++;
+    maxAncestorDiff(root->left, mp, ans);
+    maxAncestorDiff(root->right, mp, ans);
+    
+    if(!(--mp[root->val]))
+        mp.erase(root->val);
+}
+};
