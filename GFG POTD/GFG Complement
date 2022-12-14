@@ -1,0 +1,46 @@
+class Solution{
+public:
+    vector<int> findRange(string str, int n) {
+        int j=0;
+        int count=0;
+        for(int i=0;i<n;i++)
+        {
+            if(str[i]=='1')
+            ++count;
+        }
+        int maxlen=count;
+        int start=0;
+        int end=-1;
+        int ic=count;
+        int astrt=-1;
+        
+        while(j<n)
+        {
+          if(str[j]=='0')
+          {
+              ++count;
+          }
+          else
+          {
+            --count;  
+          }
+          if(count>maxlen)
+          {
+              maxlen=count;
+              astrt=start;
+              end=j;
+          }
+          else if(count<ic)
+          {
+              start=j+1;
+              count=ic;
+          }
+          ++j;
+          
+        }
+        if(end==-1)
+        return {-1};
+        vector<int> v={astrt+1,end+1};
+        return v;
+    }
+};
