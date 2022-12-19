@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int start, int end) {
+         vector<int>adj[n];
+        for(auto it:edges)
+        {
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
+        }
+        vector<bool> vis(n,false);
+        
+        dfs(start,end,adj,vis);
+        if(vis[end]==false)
+            return false;
+        else
+            return true;
+        
+    }
+    
+    void dfs(int start,int end,vector<int> adj[],vector<bool> &vis)
+    {
+        
+        vis[start]=true;
+        for(auto it:adj[start])
+        {
+            if(vis[it]==false)
+            {
+                dfs(it,end,adj,vis);
+            }
+        }
+        
+    }
+};
