@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        vector<vector<int>> adj(n+1);
+        for(int i=0;i<dislikes.size();i++)
+        {
+            adj[dislikes[i][0]].push_back(dislikes[i][1]);
+            adj[dislikes[i][1]].push_back(dislikes[i][0]);
+        }
+        
+        vector<int> col(n+1,-1);
+        
+        for(int i=1;i<=n;i++)
+        {
+            if(col[i]==-1)
+            {
+                queue<int> q;
+                q.push(i);
+                col[i]=0;
+                while(!q.empty())
+                {
+                    for(int i=0;i<q.size();i++)
+                    {
+                        int node=q.front();
+                        q.pop();
+                        for(auto it:adj[node])
+                        {
+                            if(col[it]==-1)
+                            {
+                                q.push(it);
+                                col[it]=1-col[node];
+                            }
+                            else if(col[it]==col[node])
+                                return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+        
+    }
+};
