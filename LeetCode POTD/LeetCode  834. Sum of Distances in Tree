@@ -1,0 +1,44 @@
+class Solution {
+     vector<vector<int>> adj;
+    int tot;
+    
+public:
+    vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& e) {
+        adj.resize(n);
+        tot=n;
+       
+        for(int i=0;i<e.size();i++)
+        {
+            adj[e[i][0]].push_back(e[i][1]);
+            adj[e[i][1]].push_back(e[i][0]);
+            
+        }
+        vector<int> count(n,0);
+        vector<int> res(n,0);
+        dfs(0,-1,count,res);
+        calculate(0,res,count,-1);
+        return res;
+        
+    }
+    
+    void dfs(int src,int p,vector<int> &count,vector<int> &res)
+    {
+        for(auto v:adj[src])
+        {
+            if(v==p) continue;
+            dfs(v,src,count,res);
+            count[src]+=count[v];
+            res[src]+=res[v]+count[v];
+        }
+        count[src]+=1;
+    }
+    void calculate(int src,vector<int> &res,vector<int> &count,int p)
+    {
+        for(auto v:adj[src])
+        {
+            if(v==p) continue;
+            res[v]=res[src]-count[v]+tot-count[v];
+            calculate(v,res,count,src);
+        }
+    }
+};
