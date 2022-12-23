@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        
+        vector<vector<int>>dp(prices.size(),vector<int>(2,-1));
+        
+        return helper(0,1,prices,dp);
+        
+    }
+    
+    int helper(int i,int t, vector<int> &prices,vector<vector<int>> &dp)
+    {
+        if(i>=prices.size())
+            return 0;
+        if(dp[i][t]!=-1)
+            return dp[i][t];
+        int opt1,opt2;
+        if(t==1)
+        {
+           opt1=-prices[i]+helper(i+1,0,prices,dp);
+           opt2=helper(i+1,1,prices,dp);
+        }
+        else
+        {
+            opt1=prices[i]+helper(i+2,1,prices,dp);
+            opt2=helper(i+1,0,prices,dp);
+        }
+        return dp[i][t]=max(opt1,opt2);
+    }
+};
