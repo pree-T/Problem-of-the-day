@@ -1,0 +1,26 @@
+class Solution{
+public:
+    void precompute()
+    {
+        // Code Here
+    }
+    
+    long long solve(long long l, long long r){
+        long long ans=0,a,b,c;
+        int i,j,k;
+        for(i=log2(l),a=pow(2,i);i<63;i++,a<<=1) {
+            for(j=0,b=1;j<i;j++,b<<=1) {
+                for(k=0,c=1;k<j;k++,c<<=1) {
+                    long long n=a|b|c;
+                    if(n>=l && n<=r) {
+                        ans++;
+                    }
+                    else if(n>r) {
+                        return ans;
+                    }
+                }
+            }
+        }
+    }
+    
+};
