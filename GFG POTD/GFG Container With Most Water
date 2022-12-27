@@ -1,0 +1,20 @@
+long long maxArea(long long arr[], int len)
+{
+    int s=0;
+    int e=len-1;
+    long long ans=0;
+    while(s<e)
+    {
+        ans=max(ans,min(arr[s],arr[e])*(e-s));
+        if(arr[s]<arr[e])
+        {
+            ++s;
+        }
+        else
+        {
+            --e;
+        }
+    }
+    return ans;
+    
+}
