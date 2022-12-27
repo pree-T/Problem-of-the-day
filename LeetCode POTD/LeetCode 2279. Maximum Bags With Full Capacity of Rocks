@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int maximumBags(vector<int>& cap, vector<int>& r, int ar) {
+        int n=cap.size();
+        vector<int> rem(n,0);
+        for(int i=0;i<n;i++)
+        {
+            rem[i]=cap[i]-r[i];
+        }
+        
+        sort(rem.begin(),rem.end());
+        for(int i=0;i<n;i++)
+        {
+            if(ar==0)
+                break;
+            if(rem[i]==0) continue;
+            else
+            {
+                if(rem[i]<ar)
+                {
+                    ar-=rem[i];
+                    rem[i]=0;
+                }
+                else
+                {
+                    rem[i]-=ar;
+                    ar=0;
+                    break;
+                }
+            }
+        }
+        int count=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(rem[i]==0)
+            ++count;
+        }
+        return count;
+        
+    }
+};
