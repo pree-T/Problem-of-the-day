@@ -1,0 +1,22 @@
+class Solution {
+  public:
+    // Function to find largest subtree sum.
+    int findLargestSubtreeSum(Node* root)
+    {
+        int maxsum=INT_MIN;
+        helper(root,maxsum);
+        return maxsum;
+    }
+    int helper(Node* root,int &maxsum)
+    {
+        if(root==NULL)
+        return 0;
+        
+        int l=helper(root->left,maxsum);
+        int r=helper(root->right,maxsum);
+        //maxsum=max(maxsum,root->data);
+        int sum=root->data+l+r;
+        maxsum=max(maxsum,sum);
+        return sum;
+    }
+};
