@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool detectCapitalUse(string word) {
+        int pos=-1;int countcap=0;int countl=0;
+        int n=word.size();
+        for(int i=0;i<n;i++)
+        {
+            if(word[i]>='A' && word[i]<='Z')
+            {
+                if(pos==-1)
+                {
+                    pos=i;
+                }
+                ++countcap;
+            }
+            else if(word[i]>='a' && word[i]<='z')
+                ++countl;
+        }
+        
+        if(pos==-1)
+        {
+            if(countl==n)
+                return true;
+            else
+                return false;
+        }
+        else if(countcap==n || (pos==0 && countl==n-1))
+            return true;
+        else
+            return false;
+       
+        
+    }
+};
