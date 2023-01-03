@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minDeletionSize(vector<string>& strs) {
+        int n=strs.size();
+        int c=0;
+        for(int i=0;i<strs[0].size();i++)
+        {
+            string w="";
+          for(int j=0;j<n;j++)
+          {
+              w=w+strs[j][i];
+          }
+        
+            string w2=w;
+            sort(w2.begin(),w2.end());
+            if(w!=w2)
+                ++c;
+                
+        }
+        return c;
+        
+    }
+};
