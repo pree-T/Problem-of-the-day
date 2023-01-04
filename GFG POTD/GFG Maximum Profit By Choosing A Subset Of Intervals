@@ -1,0 +1,71 @@
+class Solution {
+    
+    static bool mycmp(vector<int> a,vector<int> b)
+    {
+        if(a[0] == b[0])
+        {
+            if(a[1]==b[1])
+                return a[2]>b[2];
+            return a[1]<b[1];
+        }
+        return a[0]<b[0];
+    }
+  public:
+    int maximum_profit(int n, vector<vector<int>> &inter) {
+        sort(inter.begin(),inter.end(),mycmp);
+        
+        vector<int> dp(n,0);
+        int ans = INT_MIN;
+        for(int i=0;i<n;i++)
+        {
+            dp[i] = inter[i][2];
+            int prv_profit=0;
+            for(int j=i-1;j>=0;j--)
+            {
+                if(inter[i][0]>=inter[j][1])
+                prv_profit = max(prv_profit, dp[j]);
+            }
+            dp[i]+=prv_profit;
+            ans = max(ans,dp[i]);
+        }
+        return ans;
+    }
+};
+
+/*1. sort acc to start if sm then acc to end if end is sm then acc to max profit .
+
+ex : - 
+
+2 4 4
+
+1 2 4
+
+1 5 7
+
+1 2 7 
+
+2 3 1
+
+to 
+
+1 2 7
+
+1 2 4
+
+1 5 7
+
+2 3 1
+
+2 4 4
+
+2. now use dp to get the max profit from prev non overlapping task and add to current profit of task . (kind of same technique as LIS).
+
+1 2 7 -> profit = 7
+
+1 2 4 -> profit = 4
+
+1 5 7 -> profit = 7
+
+2 3 1 -> This task can be done after first interval -> { 1 2 7 } or second interval -> { 1 2 4 } we preffer to do {1 2 7}  bcz it give more profit . total profit = max of prv non-overlapping tasks profit + curr task profit = 7 + 1 = 8
+
+2 4 4 -> profit = 7 + 4 = 11.*/
