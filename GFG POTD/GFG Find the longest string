@@ -1,0 +1,59 @@
+The approach is straightforward: 
+
+i) The first step is to store all the words in an unordered map
+
+ii) The next step is to sort the array. The sorting is done in the following manner: 
+
+     a)  first sort them on the basis of their length
+
+     b) If their lengths are equal, sort them reverse lexicographically.
+
+iii) The idea here is that after sorting the array in this manner, we will iterate the sorted array in the reverse manner, as we need largest string which is lexicographically smallest. And here we have sorted the array in such a way that, if we iterate the sorted array from the last, and the word which has all its prefixes in the words array (can be checked using unordered map), will be our answer
+
+iv) If no such word exists, return empty array. 
+
+
+class Solution
+{
+    static bool cmp(string a,string b)
+    {
+        if(a.size() !=b.size())
+        {
+            return a.size()<b.size();
+        }
+        else
+        return a>b;
+        
+    }
+public:
+    string longestString(vector<string> &words)
+    {
+         int n=words.size();
+        unordered_map<string,int> mp;
+        for(int i=0;i<n;i++)
+        {
+            mp[words[i]]++;
+        }
+        sort(words.begin(),words.end(),cmp);
+        
+        for(int i=n-1;i>=0;i--)
+        {
+            int l=words[i].size();
+            string t="";
+            bool flag=true;
+            for(int j=0;j<l;j++)
+            {
+                t=t+words[i][j];
+                if(mp.find(t)==mp.end())
+                {
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag==true)
+            return words[i];
+        }
+        return "";
+       
+    }
+};
