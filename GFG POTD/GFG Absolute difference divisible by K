@@ -1,0 +1,56 @@
+/*
+so there the idea
+
+Suppose we have two numbers x1 and x2 and we want (x1 -x2) to be divisible by k
+
+and we know that if both numbers are divisible by k then if we subtract them they will also be divisible by k
+
+for example K=2   (4-2) is divisible by 2 because ( 4 is divisible by 2 )  and ( 2 is also divisible by 2 ).
+
+ 
+
+so what x%k give us ?? it give us if we add x%k or subtract x%k from that number it will became divisible by k
+
+for example: k=5 and x=2   (5%2) = 1  if we add 1 to 5 it will became 6 which is divisible by 2 and if we subtract 1 from 5 it will became 4 which is also divisible by 2
+
+ 
+
+so what we will do we will check and can i get arr[i]%k from any previous number so that i will add arr[i]%k to my current number  and subtract arr[i]%k to my previous number to make both the numbers divisible by k .
+
+for example:  [5,7]    K=2
+
+  5%2 = 1 // subtract one to make it divisible by K
+
+  7%2 =1 // needs one to make it divisible by K
+
+or vice versa 
+
+ 
+
+we will take one from 5 to make it divisible by K*/
+
+class Solution {
+  public:
+    long long countPairs(int n, int arr[], int k) {
+        // code here
+        unordered_map<int,int> map;     
+
+     int res=0;
+
+     
+
+     for(int i=0;i<n;++i){
+
+          if(map.find(arr[i]%k)!=map.end()){
+
+            res+=map[arr[i]%k];  
+
+          }
+
+          map[arr[i]%k]++; 
+
+      }
+
+     return res;
+    }
+};
