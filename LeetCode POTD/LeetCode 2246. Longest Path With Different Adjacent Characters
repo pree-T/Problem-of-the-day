@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int longestPath(vector<int>& parent, string s) {
+        int n=parent.size();
+        vector<vector<int>> adj(n);
+       
+        for(int i=1;i<n;i++)
+        {
+            
+            adj[parent[i]].push_back(i);
+            
+        }
+        int ans=1;
+        dfs(0,ans,adj,s);
+        return ans;
+       
+        
+    }
+    
+    int dfs(int u,int &ans,vector<vector<int>> &adj,string &s)
+    {
+        if(adj[u].size()==0)
+        {
+             return 1; 
+        }
+          
+        int opt1=0;
+        int opt2=0;
+        for(auto v:adj[u])
+        {
+            int len=dfs(v,ans,adj,s);
+            ans=max(ans,len);
+            if(s[v]!=s[u])
+            {
+                if(len>opt1)
+                {
+                opt2=opt1;
+                opt1=len;
+                }
+                else
+                {
+                    opt2=max(opt2,len);
+                }
+            }
+        }
+        ans=max(ans,opt1+opt2+1);
+        
+        return 1+opt1;
+    }
+};
