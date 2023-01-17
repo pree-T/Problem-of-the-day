@@ -1,0 +1,56 @@
+class Solution
+{
+public:
+    int maxGCD( Node* root)
+    {
+        if(root==NULL)
+        return NULL;
+        queue<Node*> q;
+        q.push(root);
+        int ans=0;
+        int hcf=0;
+        while(!q.empty())
+        {
+            Node* node=q.front();
+            q.pop();
+            int t=calculategcd(node->left,node->right);
+            if(t>=hcf)
+            {
+                if(t==hcf)
+                {
+                    ans=max(ans,node->data);
+                }
+                else
+                {
+                    hcf=max(hcf,t);
+                    ans=node->data;
+                }
+                
+            }
+            if(node->left)
+            {
+                q.push(node->left);
+                
+            }
+            
+            if(node->right)
+            {
+                q.push(node->right);
+                
+            }
+            
+        }
+        return ans;
+    }
+    
+    int calculategcd(Node* a,Node* b)
+    {
+        if(a==NULL && b==NULL)
+        return -1;
+        if(a==NULL || b==NULL )
+        return -1;
+        return __gcd(a->data,b->data);
+        
+        
+    }
+};
