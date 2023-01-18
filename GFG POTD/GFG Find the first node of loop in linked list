@@ -1,0 +1,28 @@
+class Solution
+{
+    public:
+     //Function to find first node if the linked list has a loop.
+    int findFirstNode(Node* head)
+    {
+        if(head==NULL)
+        return -1;
+        Node *f=head;
+        Node *s=head;
+        while(f && f->next)
+        {
+            s=s->next;
+            f=f->next->next;
+            if(s==f)
+            {
+                s=head;
+                while(s!=f)
+                {
+                    s=s->next;
+                    f=f->next;
+                }
+                return s->data;
+            }
+        }
+        return -1;
+    }
+};
