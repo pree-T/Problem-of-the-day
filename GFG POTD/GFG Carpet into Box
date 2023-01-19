@@ -1,0 +1,39 @@
+class Solution{
+    public:
+    int carpetBox(int al, int ab, int bl, int bb){
+        int gsc=max(al,ab);
+        int lsc=min(al,ab);
+        int gsb=max(bl,bb);
+        int lsb=min(bl,bb);
+        int count=0;
+        while(true)
+        {
+            if(gsc<=gsb && lsc<=lsb)
+            {
+                return count;
+            }
+            else
+            {
+                if(gsc>gsb)
+                {
+                    gsc/=2;
+                    ++count;
+                }
+                else if(lsc>lsb)
+                {
+                    lsc/=2;
+                    ++count;
+                }
+                int currgsc=gsc;
+                int currlsc=lsc;
+                gsc=max(currgsc,currlsc);
+                lsc=min(currgsc,currlsc);
+                
+            }
+            
+        }
+        
+        return -1;
+        
+    }
+};
