@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        set<vector<int>> ans;
+         int n=nums.size();
+         vector<int> temp;
+         helper(0,n,nums,temp,ans);
+          vector<vector<int>> res;
+        for(auto it:ans)
+        {
+            res.push_back(it);
+        }
+        return res;
+        
+    }
+    
+    void helper(int i,int n,vector<int> &nums,vector<int> &temp,set<vector<int>> &ans)
+    {
+        
+         if(i==n)
+         {
+             if(temp.size()>=2)
+             {
+                 ans.insert(temp);
+             }
+             return;
+         }
+         if(temp.empty() || temp.back()<=nums[i])
+         {
+            // cout<<"yes"<<endl;
+             temp.push_back(nums[i]);
+             helper(i+1,n,nums,temp,ans);
+             temp.pop_back();
+         }
+         helper(i+1,n,nums,temp,ans);
+    }
+};
