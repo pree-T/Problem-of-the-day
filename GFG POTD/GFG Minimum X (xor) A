@@ -1,0 +1,46 @@
+class Solution {
+  public:
+    int minVal(int a, int b) {
+          int y=__builtin_popcount(b);
+
+        int z=__builtin_popcount(a);
+
+        int sub=abs(y-z);
+
+        if(sub==0){
+
+            return a;
+
+            
+
+        }
+
+        else if(z>y){
+
+            while(sub>0){
+
+                a=a&(a-1);
+
+                sub--;
+
+            }
+
+            
+
+        }
+
+        else{
+
+            while(sub>0){
+
+                a=a|(a+1);
+
+                sub--;
+
+            }
+
+        }
+
+        return a;
+    }
+};
