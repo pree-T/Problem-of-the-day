@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> ans;
+        recurse("","",0,0,s,ans);
+        return ans;
+        
+    }
+    
+    void recurse(string res,string curr,int i,int c,string &s,vector<string> &ans)
+    {
+        if(c>3)
+            return;
+        if(i==s.size())
+        {
+            if(c==3 && !curr.empty() && 0<=stoi(curr) && stoi(curr)<=255)
+            {
+                string temp=res+curr;
+                ans.push_back(temp);
+            }
+            
+            return ;
+            
+        }
+        
+        if(curr.empty())
+        {
+            recurse(res,curr+s[i],i+1,c,s,ans);
+            return ;
+        }
+        
+        if(!curr.empty() && stoi(curr)==0)
+        {
+            recurse(res+curr+'.',"",i,c+1,s,ans);
+            return;
+        }
+        
+        if(!curr.empty() && 0<=stoi(curr) && stoi(curr)<=255)
+        {
+            recurse(res,curr+s[i],i+1,c,s,ans);
+            recurse(res+curr+'.',"",i,c+1,s,ans);
+        }
+        
+        
+        
+    }
+};
