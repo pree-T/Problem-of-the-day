@@ -1,0 +1,28 @@
+class Solution {
+  public:
+    string removePair(string str) {
+        stack<char> s;
+        for(int i=0;i<str.size();i++)
+        {
+            if(!s.empty() && s.top()==str[i])
+            {
+            while(!s.empty() && s.top()==str[i])
+            {
+                s.pop();
+            }
+            continue;
+            }
+            
+            s.push(str[i]);
+        }
+        string ans="";
+        while(!s.empty())
+        {
+            ans=ans+s.top();
+            s.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        if(ans.empty()) return "-1";
+        return ans;
+    }
+};
