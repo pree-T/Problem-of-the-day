@@ -1,0 +1,31 @@
+class Solution
+{
+    public:
+    //Function to perform case-specific sorting of strings.
+    string caseSort(string str, int n)
+    {
+       vector<char> lowerCase, upperCase;
+        unordered_set<int> lowerCaseIndex;
+        for(int i = 0; i < n; i++){
+            if(str[i] >= 'a' && str[i] <= 'z'){
+                lowerCase.push_back(str[i]);
+                lowerCaseIndex.insert(i);
+            }   
+            else{
+                upperCase.push_back(str[i]);
+            }
+        }
+        sort(lowerCase.begin(), lowerCase.end());
+        sort(upperCase.begin(), upperCase.end());
+        int lower = 0, upper = 0;
+        for(int i = 0; i < n; i++){
+            if(lowerCaseIndex.find(i) != lowerCaseIndex.end()){
+                str[i] = lowerCase[lower++];
+            }
+            else{
+                str[i] = upperCase[upper++];
+            }
+        }
+        return str;
+    }
+};
