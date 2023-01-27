@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
+        int n=words.size();
+        unordered_map<string,int> mp;
+        vector<string> ans;
+        
+        for(int i=0;i<n;i++)
+        {
+            mp[words[i]]=1;
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            if(find_concat(words[i],mp))
+                ans.push_back(words[i]);
+                
+        }
+        return ans;
+        
+        
+        
+    }
+    
+    bool find_concat(string w,unordered_map<string,int> &mp)
+    {
+        int n= w.size();
+        for(int i=1;i<n;i++)
+        {
+            string p=w.substr(0,i);
+            string suff=w.substr(i);
+            if(mp.find(p)!=mp.end())
+            {
+                if(mp.find(suff)!=mp.end() || find_concat(suff,mp))
+                    return true;
+            }
+        }
+        return false;
+    }
+};
