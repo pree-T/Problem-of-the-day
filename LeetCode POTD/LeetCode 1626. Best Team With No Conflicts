@@ -1,0 +1,42 @@
+class Solution {
+    static bool comp(pair<int,int> a,pair<int,int> b)
+    {
+        if(a.first==b.first)
+        {
+            return a.second>b.second;
+        }
+        else
+        {
+            return a.first>b.first;
+        }
+    }
+public:
+    int bestTeamScore(vector<int>& scores, vector<int>& ages) {
+        int n=scores.size();
+        vector<pair<int,int>> v;
+        for(int i=0;i<n;i++)
+        {
+            v.push_back({scores[i],ages[i]});
+        }
+        vector<vector<int>> dp(1005,vector<int>(1005,-1));
+        sort(v.begin(),v.end(),comp);
+        
+       return helper(0,v,1001,dp);
+        
+    }
+    
+    int helper(int i,vector<pair<int,int>> &v,int minage,vector<vector<int>> &dp)
+    {
+        if(i==v.size())
+            return 0;
+        if(dp[i][minage]!=-1)
+            return dp[i][minage];
+        int opt1=0,opt2=0;
+        if(v[i].second<=minage)
+        {
+            opt1=v[i].first+helper(i+1,v,v[i].second,dp);
+        }
+        opt2=helper(i+1,v,minage,dp);
+        return dp[i][minage]=max(opt1,opt2);
+    }
+};
