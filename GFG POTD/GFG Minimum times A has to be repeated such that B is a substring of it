@@ -1,0 +1,22 @@
+class Solution {
+  public:
+    int minRepeats(string a, string b) {
+        
+        string temp=a;
+        int count=1;
+        while(temp.size()<b.size())
+        {
+            temp+=a;
+            ++count;
+        }
+        
+        if(temp.find(b)!=-1)
+        return count;
+        temp+=a; ++count;
+        if(temp.find(b)!=-1)
+        return count;
+        else
+        return -1;
+        
+    }
+};
