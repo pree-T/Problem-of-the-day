@@ -1,0 +1,89 @@
+class Solution{
+    public:
+    pair<int,int> endPoints(vector<vector<int>> matrix){
+        
+        char dir='r';
+        int m=matrix.size();
+        int n=matrix[0].size();
+        int x=0;
+        int y=0;
+        int prevx=-1;
+        int prevy=-1;
+        while(true)
+        {
+            if(matrix[x][y]==0)
+            {
+                prevx=x;
+                prevy=y;
+                 if(dir=='u')
+                {
+                    x=x-1;
+                    
+                }
+                else if(dir=='r')
+                {
+                    y=y+1;
+                }
+                else if(dir=='d')
+                {
+                    x=x+1;
+                }
+                else
+                {
+                    y=y-1;
+                }
+                
+            }
+            else if(matrix[x][y]==1)
+            {
+                 prevx=x;
+                prevy=y;
+                if(dir=='u')
+                {
+                    dir='r';
+                }
+                else if(dir=='r')
+                {
+                    dir='d';
+                }
+                else if(dir=='d')
+                {
+                    dir='l';
+                }
+                else
+                {
+                    dir='u';
+                }
+                
+                 if(dir=='u')
+                {
+                    x=x-1;
+                    
+                }
+                else if(dir=='r')
+                {
+                    y=y+1;
+                }
+                else if(dir=='d')
+                {
+                    x=x+1;
+                }
+                else
+                {
+                    y=y-1;
+                }
+                matrix[prevx][prevy]=0;
+                
+                
+            }
+            
+            if(x<0 || y<0 || x>=m || y>=n)
+            {
+                return {prevx,prevy};
+            }
+            
+        }
+        return {};
+    }
+
+};
