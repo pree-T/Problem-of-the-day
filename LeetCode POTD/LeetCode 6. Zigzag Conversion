@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string result;
+    int count = 0;
+    string convert(string s, int numRows) {
+         if(numRows < 2) return s;
+        
+        int next = 2 * (numRows - 1);
+        int zig = 0, zag, zigzag;
+        
+        for (int i = 0; i < numRows; i++) {
+            zigzag = 0;
+            for (int j = i; j < s.size(); j += next) {
+                
+                result.push_back(s[j]);
+                
+                if (i % (numRows - 1) != 0) {
+                    if (zigzag % 2) next = zig;
+                    else next = zag;
+                }
+                else next = 2 * (numRows - 1);
+                
+                zigzag++;
+                count++;
+            }
+            zig += 2;
+            zag = 2 * (numRows - 1) - zig;
+        }
+        return result;
+        
+    }
+};
