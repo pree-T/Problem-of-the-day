@@ -1,0 +1,49 @@
+class Solution{
+public:
+    long long int verticallyDownBST(Node *root,int target){
+        unordered_map<int,vector<int>> mp;
+        Node *t=NULL;
+        find(root,target,t);
+        if(t==NULL)
+        return -1;
+        helper(t,mp,0);
+        
+        int sum=0;
+        for(int i=0;i<mp[0].size();i++)
+        {
+            //cout<<mp[0][i]<<endl;
+            sum+=mp[0][i];
+        }
+        return sum-target;
+        
+    }
+    
+    void find(Node* root,int target,Node *&t)
+    {
+        if(root==NULL)
+        return;
+        
+        if(root->data>target)
+        {
+            find(root->left,target,t);
+        }
+        else if(root->data<target)
+        {
+            find(root->right,target,t);
+        }
+        else
+        {
+            t=root;
+            return;
+        }
+    }
+    
+    void helper(Node* t,unordered_map<int,vector<int>> &mp,int h)
+    {
+        if(t==NULL)
+        return;
+        mp[h].push_back(t->data);
+        helper(t->left,mp,h-1);
+        helper(t->right,mp,h+1);
+    }
+};
