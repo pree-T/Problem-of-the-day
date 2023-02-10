@@ -1,0 +1,36 @@
+class Solution{
+public:
+    int maxInstance(string s){
+        string t="balloon";
+        vector<int> f1(26,0);
+        for(int i=0;i<t.size();i++)
+        {
+            f1[t[i]-'a']++; 
+        }
+         vector<int> f2(26,0);
+         
+         for(int i=0;i<s.size();i++)
+         {
+             f2[s[i]-'a']++;
+         }
+         
+         int ans=INT_MAX;
+         
+         for(int i=0;i<26;i++)
+         {
+             if(f2[i]>0 && f1[i]>0)
+             {
+                 ans=min(ans,f2[i]/f1[i]);
+             }
+             else if(f2[i]==0 && f1[i]>0)
+             {
+                 ans=0;
+                 break;
+             }
+         }
+         
+        return ans;
+        
+        
+    }
+};
