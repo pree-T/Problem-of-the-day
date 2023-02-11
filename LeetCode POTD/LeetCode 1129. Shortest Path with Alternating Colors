@@ -1,0 +1,58 @@
+class Solution {
+public:
+    vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& r, vector<vector<int>>& b) {
+        vector<vector<pair<int,int>>> adj(n);
+        
+        for(int i=0;i<r.size();i++)
+        {
+            adj[r[i][0]].push_back({r[i][1],0});
+        }
+        
+        for(int i=0;i<b.size();i++)
+        {
+            adj[b[i][0]].push_back({b[i][1],1});
+        }
+        
+        queue<pair<int,int>> q;
+        q.push({0,-1});
+        int dis=0;
+        vector<vector<int>> vis(n,vector<int>(2,0));
+        vis[0][0]=1;
+        vis[0][1]=1;
+        vector<int> distance(n,INT_MAX);
+        
+        while(!q.empty())
+        {
+            int s=q.size();
+            for(int i=0;i<s;i++)
+            {
+                int node=q.front().first;
+                int col=q.front().second;
+                q.pop();
+                distance[node]=min(distance[node],dis);
+                for(auto it:adj[node])
+                {
+                    int v=it.first;
+                    int color=it.second;
+                    if(col!=color && !vis[v][color])
+                    {
+                        q.push({v,color});
+                        vis[v][color]=1;
+                    }
+                }
+                
+                
+            }
+            ++dis;
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(distance[i]==INT_MAX)
+            {
+                distance[i]=-1;
+            }
+        }
+        return distance;
+        
+    }
+};
