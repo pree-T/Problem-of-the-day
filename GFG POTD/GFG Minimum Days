@@ -1,0 +1,19 @@
+class Solution {
+  public:
+    int getMinimumDays(int n,string s, vector<int> &p) {
+        
+        //note that p os an array of permutation
+        int ind=0;
+        for(int i=0;i<n;i++)
+        {
+            if(((p[i]!=0) && (s[p[i]]==s[p[i]-1])) || ((p[i]!=n-1) && (s[p[i]]==s[p[i]+1]) ))
+            {
+                s[p[i]]='?';
+                ind=i+1;
+            }
+        }
+        return ind;
+        
+        
+    }
+};
