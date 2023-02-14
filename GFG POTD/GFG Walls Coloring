@@ -1,0 +1,35 @@
+class Solution{   
+public:
+    int minCost(vector<vector<int>> &colors, int n) {
+        vector<vector<int>> dp(n+1,vector<int>(4,-1));
+        return solve(0,0,colors,dp);
+        
+    }
+    int solve(int i,int last,vector<vector<int>> &colors,vector<vector<int>> &dp)
+    {
+        if(i>=colors.size())
+        return 0;
+        if(dp[i][last]!=-1)
+        return dp[i][last];
+        
+        int opt1=INT_MAX,opt2=INT_MAX,opt3=INT_MAX;
+        
+        if(last!=1)
+        {
+            opt1=colors[i][0]+solve(i+1,1,colors,dp);
+        }
+        
+        if(last!=2)
+        {
+            opt2=colors[i][1]+solve(i+1,2,colors,dp);
+        }
+        
+        if(last!=3)
+        {
+            opt3=colors[i][2]+solve(i+1,3,colors,dp);
+        }
+        
+        return dp[i][last]=min(opt1,min(opt2,opt3));
+    }
+    
+};
