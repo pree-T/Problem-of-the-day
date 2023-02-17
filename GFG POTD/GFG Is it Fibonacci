@@ -1,0 +1,30 @@
+class Solution {
+  public:
+    long long solve(int n, int k, vector<long long> g) {
+        long long sum=0;
+        for(int i=0;i<k;i++)
+        {
+            sum+=g[i];
+        }
+        
+       
+         long long lsum=sum;
+         long long  nt=0;
+        
+        int i=0;
+        int j=k;
+        while(j<n)
+        {
+            // int nt=lsum;
+            // //cout<<nt<<endl;
+            g.push_back(lsum);
+            sum=sum+g[j]-g[i++];
+            lsum=sum;
+            ++j;
+            
+        }
+        //for(int i=0;i<g.size();i++)
+        //cout<<g[i]<<endl;
+        return g[n-1];
+    }
+};
