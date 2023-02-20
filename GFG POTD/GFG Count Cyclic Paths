@@ -1,0 +1,17 @@
+class Solution{   
+public:
+    int countPaths(int n){
+        vector<long long> dp(n+1,0);
+        dp[1]=0;
+        dp[2]=3;
+        int mod=1e9+7;
+        long long num=3;
+        for(int i=3;i<=n;i++)
+        {
+            num=(num*3)%mod;
+            dp[i]=(num-dp[i-1]+mod)%mod;
+        }
+        
+        return dp[n]%mod;
+    }
+};
