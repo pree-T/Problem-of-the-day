@@ -1,0 +1,49 @@
+class Solution {
+  public:
+    int checkCompressed(string s, string t) {
+       int n1=t.size();
+        int n2=s.size();
+        int j=0;
+        int i=0;
+        
+       while(i<n1 && j<n2)
+       {
+           if(isdigit(t[i]))
+           {
+               //cout<<"yes"<<endl;
+               int num=0;
+               while(i<n1 && isdigit(t[i]))
+               {
+                   num=num*10+(t[i]-'0');
+                   i++;
+               }
+               //cout<<num<<endl;
+               
+               int c=0;
+               
+               while(c<num && j<n2)
+               {
+                   j++;
+                   c++;
+               }
+               if(c!=num)
+               {
+                   return false;
+               }
+           }
+           else if(t[i]==s[j])
+           {
+               //cout<<"MATCH"<<endl;
+               j++;
+               i++;
+           }
+           else
+           return false;
+           //cout<<i<<" "<<j<<endl;
+       }
+       if(i==n1 && j==n2)
+       return true;
+       else
+       return false;
+    }
+};
