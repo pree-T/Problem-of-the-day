@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        
+        int minsf=prices[0];
+        int gmax=0;
+        for(int i=1;i<prices.size();i++)
+        {
+            gmax=max(gmax,prices[i]-minsf);
+            minsf=min(minsf,prices[i]);
+        }
+        return gmax;
+        
+    }
+};
