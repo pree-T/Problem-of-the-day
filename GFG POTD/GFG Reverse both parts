@@ -1,0 +1,60 @@
+class Solution
+{
+public:
+   
+    Node *reverse(Node *head, int k)
+    {
+        if(head==NULL)
+        return NULL;
+        Node* curr=head,*prev=NULL;
+        int count=0;
+        while(count<k && curr)
+        {
+             prev=curr;
+            curr=curr->next;
+            ++count;
+        }
+        
+        if(prev)
+        {
+            prev->next=NULL;
+        }
+        
+        Node* h1=reverseLinkedList(head);
+        Node* h2=reverseLinkedList(curr);
+        head=h1;
+        prev=NULL;
+        
+        while(h1)
+        {
+            prev=h1;
+            h1=h1->next;
+            
+        }
+        prev->next=h2;
+        return head;
+    
+        
+        
+    }
+    
+    Node * reverseLinkedList(Node *head)
+    {
+        if(head==NULL)
+        return NULL;
+        struct Node *prev,*curr,*next;
+        prev=head;
+        next=head->next;
+        head->next=NULL;
+        curr=next;
+       while(curr!=NULL)
+       {
+           next=curr->next;
+           curr->next=prev;
+           prev=curr;
+           curr=next;
+       }
+       head=prev;
+       return head;
+    }
+};
